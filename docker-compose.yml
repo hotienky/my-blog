@@ -1,0 +1,60 @@
+version: '3'
+services:
+  #PHP Service
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   image: blog-cms
+  #   container_name: app-seo
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     SERVICE_NAME: app
+  #     SERVICE_TAGS: dev
+  #   working_dir: /var/www/html
+  #   volumes:
+  #     - ./:/var/www/html
+  #   networks:
+  #     - app-network
+
+  #MySQL Service
+  db-blog:
+    # image: mysql:5.7.22
+    image: mariadb:10.5.8
+    container_name: db-blog
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: my-blog
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - .dbdata:/var/lib/mysql/
+    networks:
+      - app-network
+
+  #DB access tool
+  adminer:
+    depends_on:
+      - db-blog
+    image: adminer:4.8.0
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  .dbdata:
+    driver: local
