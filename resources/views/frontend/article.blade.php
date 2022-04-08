@@ -20,7 +20,7 @@
           @forelse($articles as $row)
             <div class="col-md-6">
               <a href="{{ url('/article/' . $row->slug) }}" class="blog-entry element-animate" data-animate-effect="fadeIn">
-                <img src="{{ asset('storage/' . $row->header_articles) }}" alt="{{ $row->title }}">
+                <img src="{{  $row->header_articles }}" alt="{{ $row->title }}">
                 <div class="blog-content-body">
                 <div class="post-meta">
                   <span class="author mr-2"><img src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t1.6435-9/126224461_1316154408735324_1156186177161694527_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=174925&_nc_ohc=mnqC0DU_hZ8AX9LpAV9&_nc_ht=scontent.fsgn13-2.fna&oh=00_AT_JqG26qF_KHYJNDbivh8caa42thSgHJGyDbPgZ9oXMBw&oe=6271C1D5" alt="Colorlib"> {{$row->created_by}}</span>&bullet;

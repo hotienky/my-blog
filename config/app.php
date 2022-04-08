@@ -176,6 +176,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
+
+
+        //my providers
+        App\Providers\AppRepositoryProvider::class
 
     ],
 
@@ -228,7 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
-
+        'Requirement'=>App\Facades\Requirement::class
     ],
 
 ];

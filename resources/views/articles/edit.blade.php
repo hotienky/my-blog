@@ -73,7 +73,7 @@
                                     <label for="header_articles">Photo Article</label>
                                     <br>
                                     <!--  TAMPILKAN Picture SAAT INI -->
-                                    <img src="{{ asset('storage/' . $article->header_articles) }}" width="100px" height="100px" alt="{{ $article->title }}">
+                                    <img src="{{ $article->header_articles }}" width="100px" height="100px" alt="{{ $article->title }}">
                                     <hr>
                                     <input type="file" name="header_articles" class="form-control">
                                     <p><strong>Leave it blank if you don't want to replace Picture</strong></p>

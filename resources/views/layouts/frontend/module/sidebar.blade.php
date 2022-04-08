@@ -5,7 +5,7 @@
         <div class="bio-body">
           <h2>{{ $setting->owner }}</h2>
            <p>{{ $setting->bio }}</p>
-          <p><a href="{{ $setting->web_portfolio }}" class="btn btn-primary btn-sm rounded">My Portfolio</a></p>
+          <p><a href="{{ $setting->web_portfolio }}" class="btn btn-primary btn-sm rounded">My Profile</a></p>
           <p class="social">
             <a href="{{ $setting->fb }}" class="p-2"><span class="fa fa-facebook"></span></a>
             <a href="{{ $setting->twitter }}" class="p-2"><span class="fa fa-twitter"></span></a>
@@ -22,7 +22,7 @@
           @foreach($random as $rand)
           <li>
             <a href="{{ url('/article/' . $rand->slug) }}">
-              <img src="{{ asset('storage/' . $rand->header_articles) }}" alt="{{ $rand->title }}" class="mr-4">
+              <img src="{{ $rand->header_articles }}" alt="{{ $rand->title }}" class="mr-4">
               <div class="text">
                 <h4>{{$rand->title}}</h4>
                 <div class="post-meta">

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Contracts\FirebaseServiceInterface;
+use App\Services\FirebaseService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -15,7 +17,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -30,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         View::composer('frontend.*', 'App\Http\View\RandomComposer');
         View::composer('frontend.*', 'App\Http\View\LatestComposer');
         View::composer(['frontend.*', 'layouts.frontend'], 'App\Http\View\SettingComposer');
+        
     }
 }

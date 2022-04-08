@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Article;
 use App\Category;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
@@ -46,7 +48,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        \Validator::make($request->all(),[
+        Validator::make($request->all(),[
             "title" => "required|min:5|max:200|unique:articles",
             "header_articles" => "required|image|mimes:jpg,jpeg,png|max:2000",
             "content" => "required|min:5",
@@ -58,15 +60,14 @@ class ArticleController extends Controller
         $new_article->title = $request->get('title');
         $new_article->content = $request->get('content');
         $new_article->status = $request->get('save_action');
-
         if($request->file('header_articles')){
-            $header_articles_path = $request->file('header_articles')->store('header_articles_covers','public');
-            $new_article->header_articles = $header_articles_path;
+            $header_articles_path = upload_files($request->file('header_articles'));
+            $new_article->header_articles = get_path_file_image($header_articles_path);
         }
 
         $new_article->slug = $request->get('title');
         $new_article->category_id = $request->get('category_id');
-        $new_article->created_by = \Auth::user()->name;
+        $new_article->created_by = Auth::user()->name;
 
         $new_article->save();
 
@@ -110,7 +111,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Validator::make($request->all(),[
+        Validator::make($request->all(),[
             "title" => "required|min:5|max:200",
             "header_articles" => "image|mimes:jpg,jpeg,png|max:2000",
             "content" => "required|min:5",
@@ -126,13 +127,13 @@ class ArticleController extends Controller
 
         if($request->file('header_articles')){
             if($article->header_articles && file_exists(storage_path('app/public/'.$article->header_articles))){
-                \Storage::delete('public/'.$article->header_articles);
+                Storage::delete('public/'.$article->header_articles);
             }
             $new_header_articles_path = $request->file('header_articles')->store('header_articles_covers','public');
             $article->header_articles = $new_header_articles_path;
         }
 
-        $article->updated_by = \Auth::user()->name;
+        $article->updated_by = Auth::user()->name;
         $article->status = $request->get('save_action');
         $article->save();
 
@@ -149,7 +150,7 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
         if($article->header_articles && file_exists(storage_path('app/public/'.$article->header_articles))){
-            \Storage::delete('public/'.$article->header_articles);
+            Storage::delete('public/'.$article->header_articles);
         }
 
         $comments = $article->comments();

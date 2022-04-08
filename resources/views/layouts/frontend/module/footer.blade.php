@@ -18,7 +18,7 @@
                   @foreach($newest as $new)
                   <li>
                     <a href="{{ url('/article/' . $new->slug) }}">
-                      <img src="{{ asset('storage/' . $new->header_articles) }}" alt="{{ $new->title }}" class="mr-4">
+                      <img src="{{ $new->header_articles }}" alt="{{ $new->title }}" class="mr-4">
                       <div class="text">
                         <h4>{{$new->title}}</h4>
                         <div class="post-meta">

@@ -11,7 +11,7 @@
 		  <div class="row blog-entries element-animate">
 
 			<div class="col-md-12 col-lg-8 main-content">
-			  <img src="{{ asset('storage/' . $article->header_articles) }}" alt="{{ $article->title }}" class="img-fluid mb-5">
+			  <img src="{{  $article->header_articles }}" alt="{{ $article->title }}" class="img-fluid mb-5">
 			   <div class="post-meta">
 					<span class="author mr-2"><img src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t1.6435-9/126224461_1316154408735324_1156186177161694527_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=174925&_nc_ohc=mnqC0DU_hZ8AX9LpAV9&_nc_ht=scontent.fsgn13-2.fna&oh=00_AT_JqG26qF_KHYJNDbivh8caa42thSgHJGyDbPgZ9oXMBw&oe=6271C1D5" alt="Colorlib" class="mr-2"> {{$article->created_by}}</span>&bullet;
 					<span class="mr-2">{{$article->created_at->format('d F Y')}}</span> &bullet;
@@ -121,7 +121,7 @@
 		  <div class="row">
 			@foreach($random as $rand)
 			<div class="col-md-6 col-lg-4">
-			  <a href="{{ url('/article/' . $rand->slug) }}" class="a-block sm d-flex align-items-center height-md" style="background-image: url('{{ asset('storage/' . $rand->header_articles) }}'); ">
+			  <a href="{{ url('/article/' . $rand->slug) }}" class="a-block sm d-flex align-items-center height-md" style="background-image: url('{{  $rand->header_articles }}'); ">
 				<div class="text">
 				  <div class="post-meta">
 					<span class="category">{{$rand->category->name}}</span>

@@ -77,7 +77,7 @@
                                             <td><strong>{{ $row->title }}</strong></td>
                                             <td>
                                                 <!-- TAMPILKAN Picture DARI FOLDER PUBLIC/STORAGE/articlesS -->
-                                                <img src="{{ asset('storage/' . $row->header_articles) }}" width="100px" height="100px" alt="{{ $row->name }}">
+                                                <img src="{{$row->header_articles}}" width="100px" height="100px" alt="{{ $row->name }}">
                                             </td>
                                             <td>
                                                  <span class="badge badge-info">{{ $row->category->name }}</span>

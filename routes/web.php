@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'Frontend\FrontController@index')->name('front.index');
 Route::get('/article', 'Frontend\FrontController@article')->name('front.article');
 Route::get('/category', function () {
@@ -49,3 +52,4 @@ Route::group([ 'middleware' => 'auth'], function() {
 });
 
 
+Route::get('firebase','FirebaseController@index');

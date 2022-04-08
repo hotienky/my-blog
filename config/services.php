@@ -43,5 +43,14 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
-
+    'firebase' => [
+        'api_key' => 'AIzaSyB7mprSl8o97RyQOKcG4AQYmWfW1HZ1r-I',
+        'auth_domain' => 'my-blog-5cfd0.firebaseapp.com',
+        'database_url' => 'https://my-blog-5cfd0-default-rtdb.asia-southeast1.firebasedatabase.appm',
+        'project_id' => 'my-blog-5cfd0',
+        'storage_bucket' => 'my-blog-5cfd0.appspot.com',
+        'messaging_sender_id' => '8647800564',
+        'app_id' => '1:8647800564:web:9ff69d72a4f7d8a28c90a1',
+        'measurement_id' => 'G-0LC02XX2M7',
+    ],
 ];

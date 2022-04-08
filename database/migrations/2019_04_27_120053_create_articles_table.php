@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->longText('content');
-            $table->string('header_articles');
+            $table->mediumText('header_articles');
             $table->enum('status',['PUBLISH','DRAFT']);
             $table->unsignedInteger('category_id');
             $table->string('created_by')->nullable();
