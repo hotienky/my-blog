@@ -20,7 +20,9 @@
     <link rel="shortcut icon" href="{{asset('img/rifkidev.ico')}}">
   </head>
   <body>
-
+  <center>
+                <button id="btn-nft-enable" onclick="initFirebaseMessagingRegistration()" class="btn btn-danger btn-xs btn-flat">Allow for Notification</button>
+            </center>
 
     <div class="wrap">
 
@@ -86,5 +88,69 @@
           $('#replyComment').val(title)
       }
     </script>
+
+
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
+<script>
+  
+    var firebaseConfig = {
+      apiKey: "AIzaSyB7mprSl8o97RyQOKcG4AQYmWfW1HZ1r-I",
+      authDomain: "my-blog-5cfd0.firebaseapp.com",
+      databaseURL: "https://my-blog-5cfd0-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "my-blog-5cfd0",
+      storageBucket: "my-blog-5cfd0.appspot.com",
+      messagingSenderId: "8647800564",
+      appId: "1:8647800564:web:9ff69d72a4f7d8a28c90a1",
+      measurementId: "G-0LC02XX2M7"
+    };
+      
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+  
+    function initFirebaseMessagingRegistration() {
+            messaging
+            .requestPermission()
+            .then(function () {
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                console.log("token", token);
+   
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+  
+                $.ajax({
+                    url: '{{ route("save-token") }}',
+                    type: 'POST',
+                    data: {
+                        token: token
+                    },
+                    dataType: 'JSON',
+                    success: function (response) {
+                        alert('Token saved successfully.');
+                    },
+                    error: function (err) {
+                        console.log('User Chat Token Error'+ err);
+                    },
+                });
+  
+            }).catch(function (err) {
+                console.log('User Chat Token Error'+ err);
+            });
+     }  
+      
+    messaging.onMessage(function(payload) {
+        const noteTitle = payload.notification.title;
+        const noteOptions = {
+            body: payload.notification.body,
+            icon: payload.notification.icon,
+        };
+        new Notification(noteTitle, noteOptions);
+    });
+   
+</script>
   </body>
 </html>

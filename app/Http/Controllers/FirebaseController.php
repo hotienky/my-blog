@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DeviceToken;
 use App\Facades\Requirement;
 use App\Services\Contracts\FirebaseServiceInterface;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Kreait\Firebase;
@@ -29,7 +31,8 @@ class FirebaseController extends Controller
      */
     public function index()
     {
-        
+        $user = User::find(1);
+        send_notification([$user->device_token], "Đang làm A", "Nội dung");
     //     // return response()->json($this->database->getReference('test/blogs')->getValue());
     //     $imageReference = $this->storage->getBucket()->object("Images/123.png");
     //    if ($imageReference->exists()) {
@@ -38,9 +41,9 @@ class FirebaseController extends Controller
     //     $image = null;
     //   }
 
-    $a= Requirement::test();
+    // $a= Requirement::test();
     //   return  response()->json($image);
-        return api_success( $a );
+        return api_success($user);
     }
 
     /**
@@ -77,5 +80,28 @@ class FirebaseController extends Controller
             ->remove();
     
         return response()->json('blog has been deleted');
+    }
+
+     /** 
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function saveToken(Request $request)
+    {
+        $tokenDevice=DeviceToken::updateOrCreate(["token_device" => $request->token,"device_type"=> 'WEB' ]);
+        return api_success($tokenDevice);
+    }
+  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function sendNotification()
+    {
+        $tokenDevices = DeviceToken::all()->pluck('token_device')->toArray();
+        send_notification($tokenDevices, "Đang làm A", "Nội dung");
+        return api_success($tokenDevices);
     }
 }

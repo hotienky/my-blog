@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\FirebaseController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::get('ping', function(){
-    return api_success('OKOK');
+    return api_success('OK OK');
 });
 Route::prefix('v1')->middleware('api')->group(function () {
     Route::get('firebase', [FirebaseController::class, 'index'])->name('firebase.get');
     Route::post('firebase', [FirebaseController::class, 'create'])->name('firebase.create');
+    Route::post('/save-token', [FirebaseController::class, 'saveToken'])->name('save-token');
+    Route::post('/send-notification', [FirebaseController::class, 'sendNotification'])->name('send.notification');
 });

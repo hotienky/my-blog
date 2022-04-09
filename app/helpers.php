@@ -3,7 +3,8 @@
 use App\Services\FirebaseService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
 
 if (!function_exists('api_success')) {
     function api_success($data = null, $msg = 'response success')
@@ -65,7 +66,7 @@ if (!function_exists('get_path_file_image')) {
     {
         $firebaseService = new FirebaseService();
         $storage =$firebaseService->connectStorage();
-        $expiresAt = new \DateTime('tomorrow');
+        $expiresAt = Carbon::createFromFormat('Y-m-d H', '2070-05-21 22');
 
         $imageReference = $storage->getBucket()->object($fileName);
         if ($imageReference->exists()) {
@@ -74,6 +75,16 @@ if (!function_exists('get_path_file_image')) {
             $image = null;
         }
         return $image;
+    }
+}
+
+if (!function_exists('send_notification')) {
+    function send_notification($deviceTokens, $title, $content)
+    {
+        $firebaseService = new FirebaseService();
+        $cloudMessage =$firebaseService->connectMessage();
+        $content =CloudMessage::new()->withNotification(['title' => $title, 'body' => $content]);
+        $cloudMessage->sendMulticast($content , $deviceTokens);
     }
 }
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Article;
 use App\Category;
 use App\Comment;
+use App\DeviceToken;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -16,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
